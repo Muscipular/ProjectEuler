@@ -12,13 +12,8 @@ namespace ProblemEuler.P1_25
         {
             var names = Resources.P22_names.Split(',').Select(x => x.Trim('"')).ToList();
             names.Sort();
-            var names2 = names.Select(x => new { Sum = x.Sum(xx => xx - 'A' + 1), Value = x }).ToArray();
             var i = 1;
-            var sum = 0;
-            foreach (var x in names2)
-            {
-                sum += x.Sum * i++;
-            }
+            var sum = names.Sum(x => x.Sum(a => a - 'A' + 1) * i++);
             Console.WriteLine(sum);
         }
     }

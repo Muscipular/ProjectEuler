@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalHelper.cs" />
     <Compile Include="IProblemRuner.cs" />
     <Compile Include="P1-25\P18.cs" />
     <Compile Include="P1-25\P19.cs" />
