@@ -49,32 +49,32 @@ namespace ProblemEuler.P1_25
             List<Amicable> list = new List<Amicable>();
             for (int i = 1; i < 10000; i++)
             {
-                List<int> p = new List<int>();
-                for (int j = 1; j <= i / 2; j++)
+                var sqrt = (int)Math.Sqrt(i);
+                int sum1 = 1, sum2 = 1;
+                for (int j = 2; j <= sqrt; j++)
                 {
                     if (i % j != 0)
                     {
                         continue;
                     }
-                    p.Add(j);
+                    sum1 += j + i / j;
                 }
-                int x = p.Sum();
-                if (i == x)
+                if (i <= sum1)
                 {
                     continue;
                 }
-                p.Clear();
-                for (int j = 1; j <= x / 2; j++)
+                var sqrt2 = (int)Math.Sqrt(sum1);
+                for (int j = 2; j <= sqrt2; j++)
                 {
-                    if (x % j != 0)
+                    if (sum1 % j != 0)
                     {
                         continue;
                     }
-                    p.Add(j);
+                    sum2 += j + sum1 / j;
                 }
-                if (p.Sum() == i)
+                if (sum2 == i)
                 {
-                    Amicable amicable = new Amicable() { A = i, B = x };
+                    Amicable amicable = new Amicable() { A = i, B = sum1 };
                     if (!list.Contains(amicable))
                     {
                         list.Add(amicable);
