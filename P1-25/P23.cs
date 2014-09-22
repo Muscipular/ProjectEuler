@@ -9,16 +9,17 @@ namespace ProblemEuler.P1_25
     {
         public void Run()
         {
-            List<int> numbers = new List<int>(28123);
-            int sum = 0;
-            for (int i = 12; i <= 28123; i++)
+            var numbers = new HashSet<short>();
+            //            numbers.Add(12, 16);
+            for (short i = 2; i <= 28123; i++)
             {
-                numbers.Add(i);
-            }
-            for (int i = 0; i < numbers.Count; i++)
-            {
-                int v = numbers[i];
-                int sum1 = 1;
+                var pKey = (short)(i >> 1);
+                if ((i & 1) == 0 && numbers.Contains(pKey))
+                {
+                    numbers.Add(i);
+                    continue;
+                }
+                int sum1 = 1, v = i;
                 for (int j = 2; j <= v / 2; j++)
                 {
                     if (v % j == 0) sum1 += j;
@@ -27,18 +28,36 @@ namespace ProblemEuler.P1_25
                 {
                     continue;
                 }
-                int v2 = v * 2;
-                for (int j = v / 2 + 1; j <= v2 / 2; j++)
+                numbers.Add(i);
+            }
+            short[] nList = numbers.OrderBy(x => x).ToArray();
+            int sum = 0;
+            for (short i = 1; i <= 28123; i++)
+            {
+                if (i < nList[0])
                 {
-                    if (v % j == 0) sum1 += j;
+                    sum += i;
+                    continue;
                 }
-                if (sum1 <= v2)
+                int uIndex = 0;
+                bool add = false;
+                foreach (var s in nList)
                 {
-                    Console.Write(v + ",  ");
-                    sum += v;
+                    if (s > i / 2)
+                    {
+                        add = true;
+                        break;
+                    }
+                    if (numbers.Contains((short)(i - s)))
+                    {
+                        break;
+                    }
+                }
+                if (add)
+                {
+                    sum += i;
                 }
             }
-            Console.WriteLine();
             Console.WriteLine(sum);
         }
     }
